@@ -1,0 +1,12 @@
+User-Agent: *
+Disallow: /page8498579.html
+Disallow: /page8869136.html
+Disallow: /tilda/form*
+Disallow: /tilda/rec*
+Disallow: /tilda/click*
+Disallow: /tilda/scroll*
+Disallow: /tilda/popup*
+Disallow:
+Sitemap: http://silver-service.com.ua/sitemap.xml
+Sitemap: http://silver-service.com.ua/sitemap-feeds.xml
+Host: silver-service.com.ua

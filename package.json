@@ -1,0 +1,7 @@
+{
+	"dependencies": {
+		"@fastify/static": "^6.11.2",
+		"fastify": "^4.23.2",
+		"nodemon": "^3.0.1"
+	}
+}

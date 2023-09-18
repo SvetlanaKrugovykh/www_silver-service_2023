@@ -1,0 +1,41 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Fastify Server",
+      "program": "${workspaceFolder}/server.js",
+      "runtimeArgs": [
+        "--inspect"
+      ],
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "port": 9229
+    },
+    {
+      "type": "msedge",
+      "request": "launch",
+      "name": "Launch Edge against localhost",
+      "url": "http://192.168.0.227:3002",
+      //"webRoot": "${workspaceFolder}",
+      //"file": "${workspaceFolder}/page8498574.html"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Node.js",
+      "program": "${workspaceFolder}/test.js", // Замените на путь к вашему файлу
+      "runtimeArgs": [],
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopOnEntry": false,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}
