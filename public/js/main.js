@@ -91,9 +91,6 @@ const pageContent = [
     ]
   },
 ]
-//const redirectApiHosts = ['91.220.106.3', '91.220.106.4']  //TODO
-//const redirectApiHosts = ['[::]', '127.0.0.1'] //TODO
-const redirectApiHosts = ['192.168.0.227']
 //#endregion
 
 const menuBtn = document.querySelector('.menu-btn')
@@ -104,7 +101,6 @@ const navItems = document.querySelectorAll('.menu-nav__item')
 const tHeader = document.querySelector("#t-header")
 const popup = document.querySelector("#popup-bm")
 const submitButton = document.querySelector('.t-submit')
-//const getInvoice = document.getElementById('getInvoiceBtn')
 
 let showMenu = false
 
@@ -112,8 +108,6 @@ choiceHeader()
 
 window.addEventListener('resize', choiceHeader)
 submitButton.addEventListener('click', handleSubmitButton)
-//getInvoice.addEventListener('click', getInvoiceFromRedirectAPI)
-
 
 function choiceHeader() {
   if (window.innerWidth > 768) {
@@ -298,9 +292,32 @@ async function getInvoiceFromRedirectAPI() {
 
         const objectUrl = URL.createObjectURL(blob)
         window.open(objectUrl, "_blank")
+        break
       } else {
         throw new Error(`Incorrect content type: ${contentType}`)
       }
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  }
+}
+
+async function goOn_RedirectAPI() {
+  for (const redirectApiHost of redirectApiHosts) {
+    try {
+      const apiAddress = `http://${redirectApiHost}:8002/redirect-api/service-go-on/`
+
+      const response = await fetch(apiAddress, {
+        method: "GET", mode: "cors", cache: "no-cache"
+      })
+
+      if (!response.ok) {
+        console.log(`Request: ${response.status}`)
+        continue
+      } else {
+        break
+      }
+
     } catch (error) {
       console.error('Error:', error)
     }
