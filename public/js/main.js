@@ -1,8 +1,3 @@
-const redirectApiHosts = [
-  "...",
-  "...1",
-]
-
 //#region pageContentNames
 const pageContent = [
   {
