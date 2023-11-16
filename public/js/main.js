@@ -1,3 +1,8 @@
+const redirectApiHosts = [
+  "...",
+  "...1",
+]
+
 //#region pageContentNames
 const pageContent = [
   {
@@ -268,9 +273,11 @@ function launchPageRebuilding() {
 
 //#region forRedirect
 async function getInvoiceFromRedirectAPI() {
+  let errorOccurred = false
+
   for (const redirectApiHost of redirectApiHosts) {
     try {
-      const apiAddress = `http://${redirectApiHost}:8002/redirect-api/get-invoice/`
+      const apiAddress = `https://${redirectApiHost}:8002/redirect-api/get-invoice/`
 
       const response = await fetch(apiAddress, {
         method: "GET", mode: "cors", cache: "no-cache"
@@ -305,7 +312,7 @@ async function getInvoiceFromRedirectAPI() {
 async function goOn_RedirectAPI() {
   for (const redirectApiHost of redirectApiHosts) {
     try {
-      const apiAddress = `http://${redirectApiHost}:8002/redirect-api/service-go-on/`
+      const apiAddress = `https://${redirectApiHost}:8002/redirect-api/service-go-on/`
 
       const response = await fetch(apiAddress, {
         method: "GET", mode: "cors", cache: "no-cache"
