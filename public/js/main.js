@@ -317,6 +317,17 @@ async function goOn_RedirectAPI() {
         console.log(`Request: ${response.status}`)
         continue
       } else {
+        const buttonElement = document.querySelector('.t-btn.t393__submit')
+        buttonElement.style.display = 'none'
+        const messageElement = document.createElement('div')
+        messageElement.textContent = 'Готово. Послугу тимчасово відновлено'
+        messageElement.style.backgroundColor = '#1c008a'
+        messageElement.style.color = 'orange'
+        messageElement.style.fontSize = '22px'
+        messageElement.style.padding = '10px'
+        messageElement.style.borderRadius = '5px'
+        const buttonParent = buttonElement.parentNode
+        buttonParent.insertBefore(messageElement, buttonElement.nextSibling)
         break
       }
 
