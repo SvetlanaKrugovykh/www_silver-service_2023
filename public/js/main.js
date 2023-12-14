@@ -103,11 +103,17 @@ const popup = document.querySelector("#popup-bm")
 const submitButton = document.querySelector('.t-submit')
 
 let showMenu = false
+let creditLink = null
 
 choiceHeader()
 
 window.addEventListener('resize', choiceHeader)
 submitButton.addEventListener('click', handleSubmitButton)
+
+function removeCreditLink() {
+  creditLink = document.getElementById('goOnItem')
+  creditLink.style.display = 'none'
+}
 
 function choiceHeader() {
   if (window.innerWidth > 768) {
@@ -134,6 +140,15 @@ menuBtn.addEventListener('click', toggleMenu)
 
 function toggleMenu() {
   let tumbler = menuBtn.getAttribute("aria-expanded")
+  for (const page of pageContent) {
+    for (const basePage of page.basePage) {
+      if (window.innerWidth < 769 && document.baseURI.includes(basePage)) {
+        tumbler = "true"
+        break
+      }
+    }
+  }
+
   switch (tumbler) {
     case "true":
       menuNav.removeAttribute("hidden")
@@ -286,12 +301,7 @@ async function getInvoiceFromRedirectAPI() {
       const contentType = response.headers.get("Content-Type")
 
       if (contentType === "application/pdf") {
-        const body = response.body
-        console.log(body)
-
         const blob = await response.blob()
-        console.log(blob)
-
         const objectUrl = URL.createObjectURL(blob)
         window.open(objectUrl, "_blank")
         break
@@ -317,20 +327,24 @@ async function goOn_RedirectAPI() {
         console.log(`Request: ${response.status}`)
         continue
       } else {
-        const buttonElement = document.querySelector('.t-btn.t393__submit')
-        buttonElement.style.display = 'none'
-        const messageElement = document.createElement('div')
-        messageElement.textContent = 'Готово. Послугу тимчасово відновлено'
-        messageElement.style.backgroundColor = '#1c008a'
-        messageElement.style.color = 'orange'
-        messageElement.style.fontSize = '22px'
-        messageElement.style.padding = '10px'
-        messageElement.style.borderRadius = '5px'
-        const buttonParent = buttonElement.parentNode
-        buttonParent.insertBefore(messageElement, buttonElement.nextSibling)
-        break
+        if (window.innerWidth > 768) {
+          const buttonElement = document.querySelector('.t-btn.t393__submit')
+          buttonElement.style.display = 'none'
+          const messageElement = document.createElement('div')
+          messageElement.textContent = 'Готово. Послугу тимчасово відновлено'
+          messageElement.style.backgroundColor = '#1c008a'
+          messageElement.style.color = 'orange'
+          messageElement.style.fontSize = '22px'
+          messageElement.style.padding = '10px'
+          messageElement.style.borderRadius = '5px'
+          const buttonParent = buttonElement.parentNode
+          buttonParent.insertBefore(messageElement, buttonElement.nextSibling)
+          break
+        } else {
+          removeCreditLink()
+          break
+        }
       }
-
     } catch (error) {
       console.error('Error:', error)
     }
