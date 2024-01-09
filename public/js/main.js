@@ -57,6 +57,23 @@ const pageContent = [
     ]
   },
   {
+    "page": "SILVER-DRONES",
+    "basePage": ["silver-drones.html"],
+    "forHide": [
+      ".t396",
+      "#rec153306226"
+    ],
+    "keysForReDefine": [],
+    "valuesForReDefine": [],
+    "toAdd": [
+      {
+        "id": "imageIndex_4",
+        "where": "#t-footer",
+        "img": "images/silver-drones.png",
+        "href": "silver-drones.html"
+      }
+    ]
+  }, {
     "page": "НОВИНИ",
     "basePage": ["page8629856.html'"],
     "forHide": [],
@@ -104,6 +121,9 @@ const submitButton = document.querySelector('.t-submit')
 
 let showMenu = false
 let creditLink = null
+let slideIndex = 0;
+const slides = document.querySelectorAll('.carousel-item');
+const totalSlides = slides.length;
 
 choiceHeader()
 
@@ -349,5 +369,31 @@ async function goOn_RedirectAPI() {
       console.error('Error:', error)
     }
   }
+}
+
+function goToBankFill() {
+  window.location.href = bank4Drones_address
+}
+//#endregion
+
+//#region showSlides
+function showSlides() {
+  slides.forEach(slide => {
+    slide.style.display = 'none';
+  });
+  const currentSlide = slides[slideIndex];
+  currentSlide.style.display = 'block';
+}
+
+function nextSlide() {
+  slideIndex++;
+  if (slideIndex >= totalSlides) slideIndex = 0;
+  showSlides();
+}
+
+function prevSlide() {
+  slideIndex--;
+  if (slideIndex < 0) slideIndex = 0;
+  showSlides();
 }
 //#endregion
