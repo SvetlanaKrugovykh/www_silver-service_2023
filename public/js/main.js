@@ -69,7 +69,7 @@ const pageContent = [
       {
         "id": "imageIndex_4",
         "where": "#t-footer",
-        "img": "images/silver-drones.png",
+        "img": "images/backgrDrones.png",
         "href": "silver-drones.html"
       }
     ]
