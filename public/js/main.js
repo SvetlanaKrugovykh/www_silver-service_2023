@@ -60,17 +60,12 @@ const pageContent = [
     "page": "SILVER-DRONES",
     "basePage": ["silver-drones.html"],
     "forHide": [
-      ".t396",
       "#rec153306226"
     ],
     "keysForReDefine": [],
     "valuesForReDefine": [],
     "toAdd": [
       {
-        "id": "imageIndex_4",
-        "where": "#t-footer",
-        "img": "images/backgrDrones.png",
-        "href": "silver-drones.html"
       }
     ]
   }, {
