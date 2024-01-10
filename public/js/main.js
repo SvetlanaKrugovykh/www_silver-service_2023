@@ -58,8 +58,7 @@ const pageContent = [
   },
   {
     "page": "SILVER-DRONES",
-    "basePage": ["silver-drones.html",
-      "silver-service.com.ua",],
+    "basePage": ["silver-drones.html"],
     "forHide": [
       ".t396",
       "#rec153306226"
