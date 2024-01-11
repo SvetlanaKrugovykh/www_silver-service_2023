@@ -2,6 +2,7 @@
 const pageContent = [
   {
     "page": "INTERNET",
+    "root": false,
     "basePage": ["page8498574.html"],
     "forHide": [
       ".t396",
@@ -22,6 +23,7 @@ const pageContent = [
   },
   {
     "page": "TV",
+    "root": false,
     "basePage": ["page8629852.html"],
     "forHide": [
       ".t396",
@@ -40,6 +42,7 @@ const pageContent = [
   },
   {
     "page": "Redirect",
+    "root": false,
     "basePage": ["redirect.html"],
     "forHide": [
       ".t396",
@@ -58,6 +61,7 @@ const pageContent = [
   },
   {
     "page": "SILVER-DRONES",
+    "root": true,
     "basePage": ["silver-drones.html"],
     "forHide": [
       ".t396",
@@ -75,6 +79,7 @@ const pageContent = [
     ]
   }, {
     "page": "НОВИНИ",
+    "root": false,
     "basePage": ["page8629856.html'"],
     "forHide": [],
     "keysForReDefine": [],
@@ -83,8 +88,8 @@ const pageContent = [
   },
   {
     "page": "SILVER_SERVICE",
+    "root": false,
     "basePage": ["index.html"],
-
     "forHide": ["div[field='tn_text_1578322192366']",
       "[id ^= 'rec149442898']",
       "[id ^= 'rec149504840']",
@@ -208,7 +213,7 @@ function toggleMenu() {
 function hideDivs() {
   for (const page of pageContent) {
     for (const basePage of page.basePage) {
-      if (window.location.pathname.includes(basePage)) {
+      if (window.location.pathname.includes(basePage) || exceptionForRootPage(page.root)) {
         for (let element of page.forHide) {
           try {
             let elements = document.querySelectorAll(element)
@@ -229,7 +234,7 @@ function reDefineDivs() {
 
   for (const page of pageContent) {
     for (const basePage of page.basePage) {
-      if (window.location.pathname.includes(basePage)) {
+      if (window.location.pathname.includes(basePage) || exceptionForRootPage(page.root)) {
         let i = 0
         for (let element of page.keysForReDefine) {
           i++
@@ -259,6 +264,10 @@ function reDefineDivs() {
       }
     }
   }
+}
+
+function exceptionForRootPage(pageRoot) {
+  return window.location.pathname === "/" && pageRoot
 }
 //#endregion
 
