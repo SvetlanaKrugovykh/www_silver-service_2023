@@ -83,14 +83,8 @@ const pageContent = [
   },
   {
     "page": "SILVER_SERVICE",
-    "basePage": [
-      "index.html",
-      "silver-service.com.ua",
-      "www.silver-service.com.ua",
-      "www.xn--80aa2aboqt7n.xn--j1amh",
-      "www.xn--80acd5bg5aou4k.net",
-      "www_silver-service_2022"
-    ],
+    "basePage": ["index.html"],
+
     "forHide": ["div[field='tn_text_1578322192366']",
       "[id ^= 'rec149442898']",
       "[id ^= 'rec149504840']",
@@ -163,7 +157,7 @@ function toggleMenu() {
   let tumbler = menuBtn.getAttribute("aria-expanded")
   for (const page of pageContent) {
     for (const basePage of page.basePage) {
-      if (window.innerWidth < 769 && document.baseURI.includes(basePage)) {
+      if (window.innerWidth < 769 && window.location.pathname.includes(basePage)) {
         tumbler = "true"
         break
       }
@@ -214,7 +208,7 @@ function toggleMenu() {
 function hideDivs() {
   for (const page of pageContent) {
     for (const basePage of page.basePage) {
-      if (document.baseURI.includes(basePage)) {
+      if (window.location.pathname.includes(basePage)) {
         for (let element of page.forHide) {
           try {
             let elements = document.querySelectorAll(element)
@@ -235,7 +229,7 @@ function reDefineDivs() {
 
   for (const page of pageContent) {
     for (const basePage of page.basePage) {
-      if (document.baseURI.includes(basePage)) {
+      if (window.location.pathname.includes(basePage)) {
         let i = 0
         for (let element of page.keysForReDefine) {
           i++
