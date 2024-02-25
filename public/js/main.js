@@ -307,7 +307,7 @@ function launchPageRebuilding() {
 
 //#region forRedirect
 async function getInvoiceFromRedirectAPI() {
-  let errorOccurred = false
+  let errorOccurred = false;
 
   for (const redirectApiHost of redirectApiHosts) {
     try {
@@ -317,31 +317,34 @@ async function getInvoiceFromRedirectAPI() {
         return; // отмена действия
       }
 
-      const apiAddress = `https://${redirectApiHost}:8002/redirect-api/get-invoice/`
+      const apiAddress = `https://${redirectApiHost}:8002/redirect-api/get-invoice/`;
 
       const response = await fetch(apiAddress, {
-        method: "GET", mode: "cors", cache: "no-cache"
-      })
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache",
+      });
 
       if (!response.ok) {
-        console.log(`Request: ${response.status}`)
-        continue
+        console.log(`Request: ${response.status}`);
+        continue;
       }
 
-      const contentType = response.headers.get("Content-Type")
+      const contentType = response.headers.get("Content-Type");
 
       if (contentType === "application/pdf") {
-        const blob = await response.blob()
-        const objectUrl = URL.createObjectURL(blob)
-        window.open(objectUrl, "_blank")
+        const blob = await response.blob();
+        const objectUrl = URL.createObjectURL(blob);
+        window.open(objectUrl, "_blank");
         console.log("Запрос на получение счета выполнен успешно.");
         alert("Запит виконаний успішно! Передивиться каталог завантажень");
-        break
+        break;
       } else {
-        throw new Error(`Incorrect content type: ${contentType}`)
+        throw new Error(`Incorrect content type: ${contentType}`);
       }
     } catch (error) {
-      console.error('Error:', error)
+      console.error('Error:', error);
+      alert('Помилка при отриманні рахунку. Будь ласка, спробуйте ще раз пізніше.');
     }
   }
 }
@@ -389,6 +392,7 @@ async function goOn_RedirectAPI() {
       }
     } catch (error) {
       console.error('Error:', error)
+      alert('На жаль, виникла помилка при виконанні запиту. Будь ласка, спробуйте ще раз пізніше.');
     }
   }
 }
