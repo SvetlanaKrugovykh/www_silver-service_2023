@@ -311,6 +311,12 @@ async function getInvoiceFromRedirectAPI() {
 
   for (const redirectApiHost of redirectApiHosts) {
     try {
+      const confirmation = confirm("Ви впевнені, що хочете виконати цю дію?");
+      if (!confirmation) {
+        console.log("The action canceled by user!");
+        return; // отмена действия
+      }
+
       const apiAddress = `https://${redirectApiHost}:8002/redirect-api/get-invoice/`
 
       const response = await fetch(apiAddress, {
@@ -328,6 +334,8 @@ async function getInvoiceFromRedirectAPI() {
         const blob = await response.blob()
         const objectUrl = URL.createObjectURL(blob)
         window.open(objectUrl, "_blank")
+        console.log("Запрос на получение счета выполнен успешно.");
+        alert("Запит виконаний успішно! Передивиться каталог завантажень");
         break
       } else {
         throw new Error(`Incorrect content type: ${contentType}`)
@@ -341,6 +349,12 @@ async function getInvoiceFromRedirectAPI() {
 async function goOn_RedirectAPI() {
   for (const redirectApiHost of redirectApiHosts) {
     try {
+      const confirmation = confirm("Ви впевнені, що хочете виконати цю дію?");
+      if (!confirmation) {
+        console.log("The action canceled by user!");
+        return;
+      }
+
       const apiAddress = `https://${redirectApiHost}:8002/redirect-api/service-go-on/`
 
       const response = await fetch(apiAddress, {
@@ -363,9 +377,13 @@ async function goOn_RedirectAPI() {
           messageElement.style.borderRadius = '5px'
           const buttonParent = buttonElement.parentNode
           buttonParent.insertBefore(messageElement, buttonElement.nextSibling)
+          console.log("Запрос на продолжение выполнен успешно.");
+          alert("Запит виконаний успішно! Послугу тимчасово відновлено");
           break
         } else {
           removeCreditLink()
+          console.log("Запрос на продолжение выполнен успешно.");
+          alert("Запит виконаний успішно! Послугу тимчасово відновлено");
           break
         }
       }
@@ -374,6 +392,9 @@ async function goOn_RedirectAPI() {
     }
   }
 }
+
+
+
 
 function goToBankFill() {
   window.location.href = bank4Drones_address
