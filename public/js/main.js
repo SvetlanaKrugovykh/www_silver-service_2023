@@ -24,7 +24,7 @@ const pageContent = [
   {
     "page": "TV",
     "root": false,
-    "basePage": ["page8629852.html"],
+    "basePage": ["public-offerta.html"],
     "forHide": [
       ".t396",
       "#rec153306226"
@@ -36,7 +36,7 @@ const pageContent = [
         "id": "imageIndex_3",
         "where": "#t-footer",
         "img": "images/backgrTV.png",
-        "href": "page8629852.html"
+        "href": "public-offerta.html"
       }
     ]
   },
