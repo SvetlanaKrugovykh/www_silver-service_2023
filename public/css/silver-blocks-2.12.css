@@ -1316,13 +1316,13 @@
 	padding: 5px !important;
 }
 .yashare-style-white-black .b-share-icon {
-	background-image: url(//static.tildacdn.com/img/b-share_counter_large_white.png) !important;
+	background-image: url(//static.silvercdn.com/img/b-share_counter_large_white.png) !important;
 }
 .yashare-style-transp-black .b-share-btn__wrap {
 	padding: 5px !important;
 }
 .yashare-style-transp-black .b-share-icon {
-	background-image: url(//static.tildacdn.com/img/b-share_counter_large_white.png) !important;
+	background-image: url(//static.silvercdn.com/img/b-share_counter_large_white.png) !important;
 }
 .yashare-style-transp-black .b-share-counter {
 	color: #000;
@@ -1410,7 +1410,7 @@
 	left: 20%;
 	height: 34px;
 	width: 21px;
-	background: url(//static.tildacdn.com/img/aboutSliderControls.png) no-repeat;
+	background: url(//static.silvercdn.com/img/aboutSliderControls.png) no-repeat;
 }
 .carousel-control .carousel-control-left-white {
 	position: absolute;
@@ -1420,7 +1420,7 @@
 	left: 20%;
 	height: 34px;
 	width: 21px;
-	background: url(//static.tildacdn.com/img/aboutSliderControls_white.png)
+	background: url(//static.silvercdn.com/img/aboutSliderControls_white.png)
 		no-repeat;
 }
 .carousel-control .carousel-control-right {
@@ -1431,7 +1431,7 @@
 	right: 20%;
 	height: 34px;
 	width: 21px;
-	background: url(//static.tildacdn.com/img/aboutSliderControls.png) no-repeat;
+	background: url(//static.silvercdn.com/img/aboutSliderControls.png) no-repeat;
 	background-position: left bottom;
 }
 .carousel-control .carousel-control-right-white {
@@ -1442,7 +1442,7 @@
 	right: 20%;
 	height: 34px;
 	width: 21px;
-	background: url(//static.tildacdn.com/img/aboutSliderControls_white.png)
+	background: url(//static.silvercdn.com/img/aboutSliderControls_white.png)
 		no-repeat;
 	background-position: left bottom;
 }
@@ -1560,7 +1560,7 @@
 		right: 10%;
 	}
 }
-.t-tildalabel {
+.t-silverlabel {
 	background-color: #000;
 	color: #fff;
 	width: 100%;
@@ -1568,18 +1568,18 @@
 	font-family: Arial;
 	font-size: 14px;
 }
-.t-tildalabel:hover .t-tildalabel__wrapper {
+.t-silverlabel:hover .t-silverlabel__wrapper {
 	opacity: 1;
 }
-.t-tildalabel_white {
+.t-silverlabel_white {
 	background-color: #fff;
 	color: #000;
 }
-.t-tildalabel_gray {
+.t-silverlabel_gray {
 	background-color: #eee;
 	color: #000;
 }
-.t-tildalabel__wrapper {
+.t-silverlabel__wrapper {
 	display: table;
 	height: 30px;
 	width: 270px;
@@ -1587,7 +1587,7 @@
 	padding-top: 20px;
 	opacity: 0.4;
 }
-.t-tildalabel__txtleft {
+.t-silverlabel__txtleft {
 	display: table-cell;
 	width: 120px;
 	height: 30px;
@@ -1597,18 +1597,18 @@
 	font-weight: 300;
 	font-size: 12px;
 }
-.t-tildalabel__wrapimg {
+.t-silverlabel__wrapimg {
 	display: table-cell;
 	width: 30px;
 	height: 30px;
 	vertical-align: middle;
 }
-.t-tildalabel__img {
+.t-silverlabel__img {
 	width: 30px;
 	height: 30px;
 	vertical-align: middle;
 }
-.t-tildalabel__txtright {
+.t-silverlabel__txtright {
 	display: table-cell;
 	width: 120px;
 	height: 30px;
@@ -1617,21 +1617,21 @@
 	font-weight: 500;
 	letter-spacing: 2px;
 }
-.t-tildalabel__link {
+.t-silverlabel__link {
 	color: #fff;
 	text-decoration: none;
 	vertical-align: middle;
 }
-.t-tildalabel_white .t-tildalabel__link,
-.t-tildalabel_gray .t-tildalabel__link {
+.t-silverlabel_white .t-silverlabel__link,
+.t-silverlabel_gray .t-silverlabel__link {
 	color: #000;
 }
-.t-tildalabel-free {
+.t-silverlabel-free {
 	padding: 35px 0 45px;
 	height: auto;
 	text-align: center;
 }
-.t-tildalabel-free__main {
+.t-silverlabel-free__main {
 	max-width: 340px;
 	display: block;
 	margin: 0 auto;
@@ -1640,11 +1640,11 @@
 	color: inherit;
 	opacity: 0.4;
 }
-.t-tildalabel-free__links-wr {
+.t-silverlabel-free__links-wr {
 	display: table;
 	margin: 30px auto 0;
 }
-.t-tildalabel-free__txt-link {
+.t-silverlabel-free__txt-link {
 	display: table-cell;
 	padding: 0 15px;
 	font-size: 13px;
@@ -1652,19 +1652,19 @@
 	color: inherit;
 	opacity: 0.25;
 }
-.t-tildalabel-free__txt-link:hover,
-.t-tildalabel-free__main:hover {
+.t-silverlabel-free__txt-link:hover,
+.t-silverlabel-free__main:hover {
 	opacity: 1;
 }
 @media screen and (max-width: 640px) {
-	.t-tildalabel-free__txt-link {
+	.t-silverlabel-free__txt-link {
 		display: block;
 		padding: 5px 30px;
 	}
-	.t-tildalabel-free__main {
+	.t-silverlabel-free__main {
 		opacity: 0.7;
 	}
-	.t-tildalabel-free__txt-link {
+	.t-silverlabel-free__txt-link {
 		opacity: 0.4;
 	}
 }
