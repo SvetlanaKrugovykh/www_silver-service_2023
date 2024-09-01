@@ -77,7 +77,27 @@ const pageContent = [
         "href": "silver-drones.html"
       }
     ]
-  }, {
+  },
+  {
+    "page": "PL",
+    "root": true,
+    "basePage": ["pl.html"],
+    "forHide": [
+      ".t396",
+      "#rec153306226"
+    ],
+    "keysForReDefine": [],
+    "valuesForReDefine": [],
+    "toAdd": [
+      {
+        "id": "imageIndex_6",
+        "where": "#t-footer",
+        "img": "images/backgrPL.png",
+        "href": "pl.html"
+      }
+    ]
+  },
+  {
     "page": "НОВИНИ",
     "root": false,
     "basePage": ["page8629856.html'"],
