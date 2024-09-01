@@ -98,6 +98,25 @@ const pageContent = [
     ]
   },
   {
+    "page": "PL",
+    "root": true,
+    "basePage": ["/pl/"],
+    "forHide": [
+      ".t396",
+      "#rec153306226"
+    ],
+    "keysForReDefine": [],
+    "valuesForReDefine": [],
+    "toAdd": [
+      {
+        "id": "imageIndex_7",
+        "where": "#t-footer",
+        "img": "images/backgrPL.png",
+        "href": "pl.html"
+      }
+    ]
+  },
+  {
     "page": "НОВИНИ",
     "root": false,
     "basePage": ["page8629856.html'"],
