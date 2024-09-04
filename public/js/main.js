@@ -346,11 +346,9 @@ function launchPageRebuilding() {
 
 //#region forRedirect
 async function getInvoiceFromRedirectAPI() {
-  let errorOccurred = false;
-
   for (const redirectApiHost of redirectApiHosts) {
     try {
-      const confirmation = confirm("Ви впевнені, що хочете виконати цю дію?");
+      const confirmation = await createConfirmationModal();
       if (!confirmation) {
         console.log("The action canceled by user!");
         return; // отмена действия
@@ -365,7 +363,7 @@ async function getInvoiceFromRedirectAPI() {
       });
 
       if (!response.ok) {
-        console.log(`Request: ${response.status}`);
+        console.log(`Request failed with status: ${response.status}`);
         continue;
       }
 
@@ -376,17 +374,18 @@ async function getInvoiceFromRedirectAPI() {
         const objectUrl = URL.createObjectURL(blob);
         window.open(objectUrl, "_blank");
         console.log("Запрос на получение счета выполнен успешно.");
-        alert("Запит виконаний успішно! Передивиться каталог завантажень");
+        showAlertModal("Запит виконаний успішно! Передивиться каталог завантажень");
         break;
       } else {
         throw new Error(`Incorrect content type: ${contentType}`);
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Помилка при отриманні рахунку. Будь ласка, спробуйте ще раз пізніше.');
+      showAlertModal('Помилка при отриманні рахунку. Будь ласка, спробуйте ще раз пізніше.');
     }
   }
 }
+
 
 async function goOn_RedirectAPI() {
   for (const redirectApiHost of redirectApiHosts) {
@@ -467,3 +466,70 @@ function prevSlide() {
   showSlides();
 }
 //#endregion
+
+
+// region modalWindows
+
+function createConfirmationModal() {
+  const modalHTML = `
+    <div id="confirmationModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#f5f5f5; padding:20px; border:1px solid #c8543e; box-shadow:0 4px 8px rgba(0,0,0,0.2); border-radius:8px; z-index:1001;">
+      <p style="margin:0; font-size:16px; color:#333;">Ви впевнені, що хочете виконати цю дію?</p>
+      <div style="margin-top:20px; text-align:center;">
+        <button id="confirmYes" style="background:#c8543e; color:#fff; border:none; border-radius:4px; padding:10px 20px; font-size:16px; cursor:pointer; margin-right:10px;">Так</button>
+        <button id="confirmNo" style="background:#e0e0e0; color:#333; border:none; border-radius:4px; padding:10px 20px; font-size:16px; cursor:pointer;">Ні</button>
+      </div>
+    </div>
+    <div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000;"></div>
+  `;
+
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+  return new Promise((resolve) => {
+    const modal = document.getElementById('confirmationModal');
+    const overlay = document.getElementById('overlay');
+
+    modal.style.display = 'block';
+    overlay.style.display = 'block';
+
+    document.getElementById('confirmYes').onclick = () => {
+      modal.style.display = 'none';
+      overlay.style.display = 'none';
+      resolve(true);
+    };
+
+    document.getElementById('confirmNo').onclick = () => {
+      modal.style.display = 'none';
+      overlay.style.display = 'none';
+      resolve(false);
+    };
+  });
+}
+
+function showAlertModal(message) {
+  const alertHTML = `
+    <div id="alertModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#f5f5f5; padding:20px; border:1px solid #c8543e; box-shadow:0 4px 8px rgba(0,0,0,0.2); border-radius:8px; z-index:1001;">
+      <p style="margin:0; font-size:16px; color:#333;">${message}</p>
+      <div style="margin-top:20px; text-align:center;">
+        <button id="alertOk" style="background:#c8543e; color:#fff; border:none; border-radius:4px; padding:10px 20px; font-size:16px; cursor:pointer;">OK</button>
+      </div>
+    </div>
+    <div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000;"></div>
+  `;
+
+  document.body.insertAdjacentHTML('beforeend', alertHTML);
+
+  const alertModal = document.getElementById('alertModal');
+  const overlay = document.getElementById('overlay');
+
+  alertModal.style.display = 'block';
+  overlay.style.display = 'block';
+
+  document.getElementById('alertOk').onclick = () => {
+    alertModal.style.display = 'none';
+    overlay.style.display = 'none';
+    alertModal.remove();
+    overlay.remove();
+  };
+}
+// endregion
+
