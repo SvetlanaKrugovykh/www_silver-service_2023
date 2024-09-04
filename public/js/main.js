@@ -446,8 +446,13 @@ async function goOn_PayLink(event) {
         console.log("The action canceled by user!");
         return;
       }
-
-      const apiAddress = `https://${redirectApiHost}:8002/redirect-api/service-go-on/`
+      const amount = await createPaymentModal(triggerButton);
+      if (amount === null) {
+        console.log("Payment canceled by user!");
+        return;
+      }
+      console.log(`Payment amount: ${amount}`);
+      const apiAddress = `https://${redirectApiHost}:8002/redirect-api/get-pay-link/?amount=${amount}`
 
       const response = await fetch(apiAddress, {
         method: "GET", mode: "cors", cache: "no-cache"
@@ -590,6 +595,61 @@ function showAlertModal(message, triggerButton) {
     alertModal.remove();
     overlay.remove();
   };
+}
+function createPaymentModal(triggerButton) {
+  const modalHTML = `
+    <div id="paymentModal" style="display:none; position:absolute; background:#2a2a72; padding:20px; border:1px solid #ff4136; box-shadow:0 4px 8px rgba(0,0,0,0.2); border-radius:8px; z-index:1001;">
+      <p style="margin:0; font-size:16px; color:#ffffff;">
+        Введіть <i>суму оплати в грн без копійок, наприклад введення суми 200 означає 200 гривень</i><br>
+        ⚠️Увага, до суми платежу додається комісія!<br>
+        ⚠️ Комісія становить 1,5% від суми платежу!
+      </p>
+      <div style="margin-top:20px; text-align:center;">
+        <input id="paymentAmount" type="number" style="padding:10px; font-size:16px; border-radius:4px; border:1px solid #ff4136; margin-bottom:20px;" min="0" step="1">
+        <br>
+        <button id="confirmPayment" style="background:#ff4136; color:#ffffff; border:none; border-radius:4px; padding:10px 20px; font-size:16px; cursor:pointer; margin-right:10px;">Підтвердити</button>
+        <button id="cancelPayment" style="background:#e0e0e0; color:#2a2a72; border:none; border-radius:4px; padding:10px 20px; font-size:16px; cursor:pointer;">Скасувати</button>
+      </div>
+    </div>
+    <div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000;"></div>
+  `;
+
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+  return new Promise((resolve) => {
+    const modal = document.getElementById('paymentModal');
+    const overlay = document.getElementById('overlay');
+
+    // Calculate the position of the trigger button
+    const rect = triggerButton.getBoundingClientRect();
+    modal.style.top = `${rect.top + window.scrollY + 35}px`; // Add 35px offset
+    modal.style.left = `${rect.left + window.scrollX}px`;
+
+    modal.style.display = 'block';
+    overlay.style.display = 'block';
+
+    document.getElementById('confirmPayment').onclick = () => {
+      const amount = document.getElementById('paymentAmount').value;
+      modal.style.display = 'none';
+      overlay.style.display = 'none';
+      modal.remove();
+      overlay.remove();
+      resolve(amount);
+    };
+
+    document.getElementById('cancelPayment').onclick = () => {
+      modal.style.display = 'none';
+      overlay.style.display = 'none';
+      modal.remove();
+      overlay.remove();
+      resolve(null);
+    };
+
+    // Prevent non-numeric input
+    document.getElementById('paymentAmount').addEventListener('input', (event) => {
+      event.target.value = event.target.value.replace(/[^0-9]/g, '');
+    });
+  });
 }
 
 // endregion
