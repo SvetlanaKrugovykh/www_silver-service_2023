@@ -390,7 +390,7 @@ async function getInvoiceFromRedirectAPI() {
 async function goOn_RedirectAPI() {
   for (const redirectApiHost of redirectApiHosts) {
     try {
-      const confirmation = confirm("Ви впевнені, що хочете виконати цю дію?");
+      const confirmation = await createConfirmationModal();
       if (!confirmation) {
         console.log("The action canceled by user!");
         return;
@@ -419,18 +419,18 @@ async function goOn_RedirectAPI() {
           const buttonParent = buttonElement.parentNode
           buttonParent.insertBefore(messageElement, buttonElement.nextSibling)
           console.log("Запрос на продолжение выполнен успешно.");
-          alert("Запит виконаний успішно! Послугу тимчасово відновлено");
+          showAlertModal("Запит виконаний успішно! Послугу тимчасово відновлено");
           break
         } else {
           removeCreditLink()
           console.log("Запрос на продолжение выполнен успешно.");
-          alert("Запит виконаний успішно! Послугу тимчасово відновлено");
+          showAlertModal("Запит виконаний успішно! Послугу тимчасово відновлено");
           break
         }
       }
     } catch (error) {
       console.error('Error:', error)
-      alert('На жаль, виникла помилка при виконанні запиту. Будь ласка, спробуйте ще раз пізніше.');
+      showAlertModal('На жаль, виникла помилка при виконанні запиту. Будь ласка, спробуйте ще раз пізніше.');
     }
   }
 }
