@@ -345,10 +345,11 @@ function launchPageRebuilding() {
 //#endregion
 
 //#region forRedirect
-async function getInvoiceFromRedirectAPI() {
+async function getInvoiceFromRedirectAPI(event) {
+  const triggerButton = event.currentTarget;
   for (const redirectApiHost of redirectApiHosts) {
     try {
-      const confirmation = await createConfirmationModal();
+      const confirmation = await createConfirmationModal("завантажити рахунок", triggerButton);
       if (!confirmation) {
         console.log("The action canceled by user!");
         return; // отмена действия
@@ -374,23 +375,24 @@ async function getInvoiceFromRedirectAPI() {
         const objectUrl = URL.createObjectURL(blob);
         window.open(objectUrl, "_blank");
         console.log("Запрос на получение счета выполнен успешно.");
-        showAlertModal("Запит виконаний успішно! Передивиться каталог завантажень");
+        showAlertModal("Запит виконаний успішно! Передивиться каталог завантажень", triggerButton);
         break;
       } else {
         throw new Error(`Incorrect content type: ${contentType}`);
       }
     } catch (error) {
       console.error('Error:', error);
-      showAlertModal('Помилка при отриманні рахунку. Будь ласка, спробуйте ще раз пізніше.');
+      showAlertModal('Помилка при отриманні рахунку. Будь ласка, спробуйте ще раз пізніше.', triggerButton);
     }
   }
 }
 
 
-async function goOn_RedirectAPI() {
+async function goOn_RedirectAPI(event) {
+  const triggerButton = event.currentTarget;
   for (const redirectApiHost of redirectApiHosts) {
     try {
-      const confirmation = await createConfirmationModal();
+      const confirmation = await createConfirmationModal("продовжити роботу в кредит", triggerButton);
       if (!confirmation) {
         console.log("The action canceled by user!");
         return;
@@ -419,23 +421,69 @@ async function goOn_RedirectAPI() {
           const buttonParent = buttonElement.parentNode
           buttonParent.insertBefore(messageElement, buttonElement.nextSibling)
           console.log("Запрос на продолжение выполнен успешно.");
-          showAlertModal("Запит виконаний успішно! Послугу тимчасово відновлено");
+          showAlertModal("Запит виконаний успішно! Послугу тимчасово відновлено", triggerButton);
           break
         } else {
           removeCreditLink()
           console.log("Запрос на продолжение выполнен успешно.");
-          showAlertModal("Запит виконаний успішно! Послугу тимчасово відновлено");
+          showAlertModal("Запит виконаний успішно! Послугу тимчасово відновлено", triggerButton);
           break
         }
       }
     } catch (error) {
       console.error('Error:', error)
-      showAlertModal('На жаль, виникла помилка при виконанні запиту. Будь ласка, спробуйте ще раз пізніше.');
+      showAlertModal('На жаль, виникла помилка при виконанні запиту. Будь ласка, спробуйте ще раз пізніше.', triggerButton);
     }
   }
 }
 
-async function goOn_PayLink() {
+async function goOn_PayLink(event) {
+  const triggerButton = event.currentTarget;
+  for (const redirectApiHost of redirectApiHosts) {
+    try {
+      const confirmation = await createConfirmationModal("перейти на сторінку оплати", triggerButton);
+      if (!confirmation) {
+        console.log("The action canceled by user!");
+        return;
+      }
+
+      const apiAddress = `https://${redirectApiHost}:8002/redirect-api/service-go-on/`
+
+      const response = await fetch(apiAddress, {
+        method: "GET", mode: "cors", cache: "no-cache"
+      })
+
+      if (!response.ok) {
+        console.log(`Request: ${response.status}`)
+        continue
+      } else {
+        if (window.innerWidth > 768) {
+          const buttonElement = document.querySelector('.t-btn.t393__submit')
+          buttonElement.style.display = 'none'
+          const messageElement = document.createElement('div')
+          messageElement.textContent = 'Готово. Послугу тимчасово відновлено'
+          messageElement.style.backgroundColor = '#1c008a'
+          messageElement.style.color = 'orange'
+          messageElement.style.fontSize = '22px'
+          messageElement.style.padding = '10px'
+          messageElement.style.borderRadius = '5px'
+          const buttonParent = buttonElement.parentNode
+          buttonParent.insertBefore(messageElement, buttonElement.nextSibling)
+          console.log("Запрос на продолжение выполнен успешно.");
+          showAlertModal("Запит виконаний успішно! Послугу тимчасово відновлено", triggerButton);
+          break
+        } else {
+          removeCreditLink()
+          console.log("Запрос на продолжение выполнен успешно.");
+          showAlertModal("Запит виконаний успішно! Послугу тимчасово відновлено", triggerButton);
+          break
+        }
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      showAlertModal('На жаль, виникла помилка при виконанні запиту. Будь ласка, спробуйте ще раз пізніше.', triggerButton);
+    }
+  }
 }
 
 
@@ -470,13 +518,13 @@ function prevSlide() {
 
 // region modalWindows
 
-function createConfirmationModal() {
+function createConfirmationModal(message, triggerButton) {
   const modalHTML = `
-    <div id="confirmationModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#f5f5f5; padding:20px; border:1px solid #c8543e; box-shadow:0 4px 8px rgba(0,0,0,0.2); border-radius:8px; z-index:1001;">
-      <p style="margin:0; font-size:16px; color:#333;">Ви впевнені, що хочете виконати цю дію?</p>
+    <div id="confirmationModal" style="display:none; position:absolute; background:#2a2a72; padding:20px; border:1px solid #ff4136; box-shadow:0 4px 8px rgba(0,0,0,0.2); border-radius:8px; z-index:1001;">
+      <p style="margin:0; font-size:16px; color:#ffffff;">Ви впевнені, що хочете ${message}?</p>
       <div style="margin-top:20px; text-align:center;">
-        <button id="confirmYes" style="background:#c8543e; color:#fff; border:none; border-radius:4px; padding:10px 20px; font-size:16px; cursor:pointer; margin-right:10px;">Так</button>
-        <button id="confirmNo" style="background:#e0e0e0; color:#333; border:none; border-radius:4px; padding:10px 20px; font-size:16px; cursor:pointer;">Ні</button>
+        <button id="confirmYes" style="background:#ff4136; color:#ffffff; border:none; border-radius:4px; padding:10px 20px; font-size:16px; cursor:pointer; margin-right:10px;">Так</button>
+        <button id="confirmNo" style="background:#e0e0e0; color:#2a2a72; border:none; border-radius:4px; padding:10px 20px; font-size:16px; cursor:pointer;">Ні</button>
       </div>
     </div>
     <div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000;"></div>
@@ -488,29 +536,37 @@ function createConfirmationModal() {
     const modal = document.getElementById('confirmationModal');
     const overlay = document.getElementById('overlay');
 
+    const rect = triggerButton.getBoundingClientRect();
+    modal.style.top = `${rect.top + window.scrollY + 35}px`; // Add 35px offset
+    modal.style.left = `${rect.left + window.scrollX}px`;
+
     modal.style.display = 'block';
     overlay.style.display = 'block';
 
     document.getElementById('confirmYes').onclick = () => {
       modal.style.display = 'none';
       overlay.style.display = 'none';
+      modal.remove();
+      overlay.remove();
       resolve(true);
     };
 
     document.getElementById('confirmNo').onclick = () => {
       modal.style.display = 'none';
       overlay.style.display = 'none';
+      modal.remove();
+      overlay.remove();
       resolve(false);
     };
   });
 }
 
-function showAlertModal(message) {
+function showAlertModal(message, triggerButton) {
   const alertHTML = `
-    <div id="alertModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#f5f5f5; padding:20px; border:1px solid #c8543e; box-shadow:0 4px 8px rgba(0,0,0,0.2); border-radius:8px; z-index:1001;">
-      <p style="margin:0; font-size:16px; color:#333;">${message}</p>
+    <div id="alertModal" style="display:none; position:absolute; background:#2a2a72; padding:20px; border:1px solid #ff4136; box-shadow:0 4px 8px rgba(0,0,0,0.2); border-radius:8px; z-index:1001;">
+      <p style="margin:0; font-size:16px; color:#ffffff;">${message}</p>
       <div style="margin-top:20px; text-align:center;">
-        <button id="alertOk" style="background:#c8543e; color:#fff; border:none; border-radius:4px; padding:10px 20px; font-size:16px; cursor:pointer;">OK</button>
+        <button id="alertOk" style="background:#ff4136; color:#ffffff; border:none; border-radius:4px; padding:10px 20px; font-size:16px; cursor:pointer;">OK</button>
       </div>
     </div>
     <div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000;"></div>
@@ -520,6 +576,10 @@ function showAlertModal(message) {
 
   const alertModal = document.getElementById('alertModal');
   const overlay = document.getElementById('overlay');
+
+  const rect = triggerButton.getBoundingClientRect();
+  alertModal.style.top = `${rect.top + window.scrollY + 35}px`; // Add 35px offset
+  alertModal.style.left = `${rect.left + window.scrollX}px`;
 
   alertModal.style.display = 'block';
   overlay.style.display = 'block';
@@ -531,5 +591,6 @@ function showAlertModal(message) {
     overlay.remove();
   };
 }
+
 // endregion
 

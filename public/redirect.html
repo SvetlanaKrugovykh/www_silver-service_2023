@@ -76,18 +76,18 @@
           </a>
         </li>
         <li class="menu-nav__item" id="downloadInvoiceItem">
-          <a href="#" class="menu-nav__link" onclick="getInvoiceFromRedirectAPI(); return false;"
+          <a href="#" class="menu-nav__link" onclick="getInvoiceFromRedirectAPI(event); return false;"
             style="color: #FFA500">
             Завантажити рахунок
           </a>
         </li>
         <li class="menu-nav__item" id="goOnItem">
-          <a href="#" class="menu-nav__link" onclick="goOn_RedirectAPI(); return false;" style="color: #FFA500;">
+          <a href="#" class="menu-nav__link" onclick="goOn_RedirectAPI(event); return false;" style="color: #FFA500;">
             Підключити в кредит
           </a>
         </li>
         <li class="menu-nav__item" id="goOnItem">
-          <a href="#" class="menu-nav__link" onclick="goOn_PayLink(); return false;" style="color: #FFA500;">
+          <a href="#" class="menu-nav__link" onclick="goOn_PayLink(event); return false;" style="color: #FFA500;">
             Сплатити за послугу
           </a>
         </li>
@@ -550,7 +550,7 @@
               data-field-container-value="grid" data-field-topunits-value="" data-field-leftunits-value=""
               data-field-heightunits-value="" data-field-widthunits-value="" style="background-color: #fb482b; color: #ffffff; border: 0px solid #000000; text-align: center; 
            line-height: 50px; cursor: pointer; border-radius: 5px; box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);"
-              onclick="getInvoiceFromRedirectAPI(); this.style.transform = 'scale(0.95)'; this.style.backgroundColor = 'purple'; return false;"
+              onclick="getInvoiceFromRedirectAPI(event); this.style.transform = 'scale(0.95)'; this.style.backgroundColor = 'purple'; return false;"
               onmouseover="this.style.backgroundColor = 'red';" onmouseout="this.style.backgroundColor = '#fb482b';"
               onmouseup="this.style.transform = 'scale(1)'; this.style.backgroundColor = '#fb482b';">
               <div class='tn-atom'>Завантажити рахунок</div>
@@ -1715,7 +1715,7 @@
             white-space: pre-wrap;" onmouseover="this.style.backgroundColor = 'red';"
                 onmouseout="this.style.backgroundColor = '#fb482b';"
                 onmousedown="this.style.backgroundColor = 'purple';" onmouseup="this.style.backgroundColor = '#fb482b';"
-                onclick="goOn_RedirectAPI(); return false;">
+                onclick="goOn_RedirectAPI(event); return false;">
             </div>
             <div>
               <input class="t-btn t393__submit" type="button" value="Сплатити за послугу"
@@ -1724,7 +1724,7 @@
             cursor: pointer; border-radius: 5px; -webkit-border-radius: 5px; box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);" onmouseover="this.style.backgroundColor = 'red';"
                 onmouseout="this.style.backgroundColor = '#fb482b';"
                 onmousedown="this.style.backgroundColor = 'purple';" onmouseup="this.style.backgroundColor = '#fb482b';"
-                onclick="goOn_PayLink(); return false;">
+                onclick="goOn_PayLink(event); return false;">
             </div>
           </div>
         </div>
@@ -2072,7 +2072,7 @@
         <div class="t393__wrapper">
           <input class="t-btn t393__submit" type="button" value="Завантажити рахунок"
             style="color:#ffffff;border:0px solid #000000;background-color:#fb482b;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);transition: transform 0.2s;"
-            onclick="getInvoiceFromRedirectAPI(); this.style.transform = 'scale(0.95)'; return false;"
+            onclick="getInvoiceFromRedirectAPI(event); this.style.transform = 'scale(0.95)'; return false;"
             onmouseup="this.style.transform = 'scale(1)';">
         </div>
       </div>
