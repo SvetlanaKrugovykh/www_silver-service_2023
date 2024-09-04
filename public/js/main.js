@@ -436,6 +436,8 @@ async function goOn_RedirectAPI() {
   }
 }
 
+async function goOn_PayLink() {
+}
 
 
 
