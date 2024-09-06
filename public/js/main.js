@@ -374,7 +374,7 @@ async function getInvoiceFromRedirectAPI(event) {
         const blob = await response.blob()
         const objectUrl = URL.createObjectURL(blob)
         window.open(objectUrl, "_blank")
-        console.log("Запрос на получение счета виконано успішно.")
+        console.log("Запит на отримання рахунку виконано успішно.")
         showAlertModal("Запит виконаний успішно! Передивиться каталог завантажень", triggerButton)
         break
       } else {
