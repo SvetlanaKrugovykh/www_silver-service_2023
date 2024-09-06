@@ -447,7 +447,7 @@ async function goOn_PayLink(event) {
       } else {
         console.log("Посилання на сплату згенеровано успішно.");
         showAlertModal("Запит виконаний успішно! Превірти новий рахунок", triggerButton);
-        break;
+        break
       }
     } catch (error) {
       console.error('Error:', error)
