@@ -387,7 +387,6 @@ async function getInvoiceFromRedirectAPI(event) {
   }
 }
 
-
 async function goOn_RedirectAPI(event) {
   const triggerButton = event.currentTarget;
   for (const redirectApiHost of redirectApiHosts) {
@@ -420,7 +419,6 @@ async function goOn_RedirectAPI(event) {
     }
   }
 }
-
 
 async function goOn_PayLink(event) {
   const triggerButton = event.currentTarget
