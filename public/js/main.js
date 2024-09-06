@@ -349,10 +349,10 @@ async function getInvoiceFromRedirectAPI(event) {
   const triggerButton = event.currentTarget
   for (const redirectApiHost of redirectApiHosts) {
     try {
-      const confirmation = await createConfirmationModal("завантажити рахунок", triggerButton)
+      const confirmation = await createConfirmationModal("Ви впевнені, що хочете завантажити рахунок", triggerButton)
       if (!confirmation) {
         console.log("The action canceled by user!")
-        return // отмена действия
+        return
       }
 
       const apiAddress = `https://${redirectApiHost}:8002/redirect-api/get-invoice/`
@@ -391,10 +391,10 @@ async function goOn_RedirectAPI(event) {
   const triggerButton = event.currentTarget;
   for (const redirectApiHost of redirectApiHosts) {
     try {
-      const confirmation = await createConfirmationModal("продовжити роботу в кредит", triggerButton);
+      const confirmation = await createConfirmationModal("Ви впевнені, що хочете продовжити роботу в кредит", triggerButton);
       if (!confirmation) {
-        console.log("The action canceled by user!");
-        return;
+        console.log("The action canceled by user!")
+        return
       }
 
       const apiAddress = `https://${redirectApiHost}:8002/redirect-api/service-go-on/`;
@@ -424,7 +424,7 @@ async function goOn_PayLink(event) {
   const triggerButton = event.currentTarget
   for (const redirectApiHost of redirectApiHosts) {
     try {
-      const confirmation = await createConfirmationModal("перейти на сторінку оплати", triggerButton)
+      const confirmation = await createConfirmationModal("Ви впевнені, що хочете перейти на сторінку оплати", triggerButton)
       if (!confirmation) {
         console.log("The action canceled by user!")
         return
@@ -442,11 +442,22 @@ async function goOn_PayLink(event) {
       })
 
       if (!response.ok) {
-        console.log(`Request: ${response.status}`)
+        console.log(`Request failed with status: ${response.status}`)
         continue
       } else {
-        console.log("Посилання на сплату згенеровано успішно.");
-        showAlertModal("Запит виконаний успішно! Превірти новий рахунок", triggerButton);
+        const data = await response.json()
+        const linkURI = data?.linkURI?.paymentLink
+        console.log(`Payment link successfully generated for: ${data.ipAddress} (${data.user_info}) `, linkURI)
+        const confirm_GoTo = await createConfirmationModal(`${data.user_info}. Перейти за посиланням до сплати?`, triggerButton)
+        if (!confirm_GoTo) {
+          console.log("The action canceled by user!")
+          return
+        }
+        if (linkURI.startsWith("http")) {
+          window.location.href = linkURI;
+        } else {
+          console.error("Invalid payment URL:", linkURI);
+        }
         break
       }
     } catch (error) {
@@ -491,7 +502,7 @@ function prevSlide() {
 function createConfirmationModal(message, triggerButton) {
   const modalHTML = `
     <div id="confirmationModal" style="display:none; position:absolute; background:#2a2a72; padding:20px; border:1px solid #ff4136; box-shadow:0 4px 8px rgba(0,0,0,0.2); border-radius:8px; z-index:1001;">
-      <p style="margin:0; font-size:16px; color:#ffffff;">Ви впевнені, що хочете ${message}?</p>
+      <p style="margin:0; font-size:16px; color:#ffffff;">${message}?</p>
       <div style="margin-top:20px; text-align:center;">
         <button id="confirmYes" style="background:#ff4136; color:#ffffff; border:none; border-radius:4px; padding:10px 20px; font-size:16px; cursor:pointer; margin-right:10px;">Так</button>
         <button id="confirmNo" style="background:#e0e0e0; color:#2a2a72; border:none; border-radius:4px; padding:10px 20px; font-size:16px; cursor:pointer;">Ні</button>
