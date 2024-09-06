@@ -160,9 +160,9 @@ const submitButton = document.querySelector('.t-submit')
 
 let showMenu = false
 let creditLink = null
-let slideIndex = 0;
-const slides = document.querySelectorAll('.carousel-item');
-const totalSlides = slides.length;
+let slideIndex = 0
+const slides = document.querySelectorAll('.carousel-item')
+const totalSlides = slides.length
 
 choiceHeader()
 
@@ -346,43 +346,43 @@ function launchPageRebuilding() {
 
 //#region forRedirect
 async function getInvoiceFromRedirectAPI(event) {
-  const triggerButton = event.currentTarget;
+  const triggerButton = event.currentTarget
   for (const redirectApiHost of redirectApiHosts) {
     try {
-      const confirmation = await createConfirmationModal("завантажити рахунок", triggerButton);
+      const confirmation = await createConfirmationModal("завантажити рахунок", triggerButton)
       if (!confirmation) {
-        console.log("The action canceled by user!");
-        return; // отмена действия
+        console.log("The action canceled by user!")
+        return // отмена действия
       }
 
-      const apiAddress = `https://${redirectApiHost}:8002/redirect-api/get-invoice/`;
+      const apiAddress = `https://${redirectApiHost}:8002/redirect-api/get-invoice/`
 
       const response = await fetch(apiAddress, {
         method: "GET",
         mode: "cors",
         cache: "no-cache",
-      });
+      })
 
       if (!response.ok) {
-        console.log(`Request failed with status: ${response.status}`);
-        continue;
+        console.log(`Request failed with status: ${response.status}`)
+        continue
       }
 
-      const contentType = response.headers.get("Content-Type");
+      const contentType = response.headers.get("Content-Type")
 
       if (contentType === "application/pdf") {
-        const blob = await response.blob();
-        const objectUrl = URL.createObjectURL(blob);
-        window.open(objectUrl, "_blank");
-        console.log("Запрос на получение счета выполнен успешно.");
-        showAlertModal("Запит виконаний успішно! Передивиться каталог завантажень", triggerButton);
-        break;
+        const blob = await response.blob()
+        const objectUrl = URL.createObjectURL(blob)
+        window.open(objectUrl, "_blank")
+        console.log("Запрос на получение счета выполнен успешно.")
+        showAlertModal("Запит виконаний успішно! Передивиться каталог завантажень", triggerButton)
+        break
       } else {
-        throw new Error(`Incorrect content type: ${contentType}`);
+        throw new Error(`Incorrect content type: ${contentType}`)
       }
     } catch (error) {
-      console.error('Error:', error);
-      showAlertModal('Помилка при отриманні рахунку. Будь ласка, спробуйте ще раз пізніше.', triggerButton);
+      console.error('Error:', error)
+      showAlertModal('Помилка при отриманні рахунку. Будь ласка, спробуйте ще раз пізніше.', triggerButton)
     }
   }
 }
@@ -398,60 +398,45 @@ async function goOn_RedirectAPI(event) {
         return;
       }
 
-      const apiAddress = `https://${redirectApiHost}:8002/redirect-api/service-go-on/`
+      const apiAddress = `https://${redirectApiHost}:8002/redirect-api/service-go-on/`;
 
       const response = await fetch(apiAddress, {
-        method: "GET", mode: "cors", cache: "no-cache"
-      })
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache"
+      });
 
       if (!response.ok) {
-        console.log(`Request: ${response.status}`)
-        continue
+        console.log(`Request: ${response.status}`);
+        continue;
       } else {
-        if (window.innerWidth > 768) {
-          const buttonElement = document.querySelector('.t-btn.t393__submit')
-          buttonElement.style.display = 'none'
-          const messageElement = document.createElement('div')
-          messageElement.textContent = 'Готово. Послугу тимчасово відновлено'
-          messageElement.style.backgroundColor = '#1c008a'
-          messageElement.style.color = 'orange'
-          messageElement.style.fontSize = '22px'
-          messageElement.style.padding = '10px'
-          messageElement.style.borderRadius = '5px'
-          const buttonParent = buttonElement.parentNode
-          buttonParent.insertBefore(messageElement, buttonElement.nextSibling)
-          console.log("Запрос на продолжение выполнен успешно.");
-          showAlertModal("Запит виконаний успішно! Послугу тимчасово відновлено", triggerButton);
-          break
-        } else {
-          removeCreditLink()
-          console.log("Запрос на продолжение выполнен успешно.");
-          showAlertModal("Запит виконаний успішно! Послугу тимчасово відновлено", triggerButton);
-          break
-        }
+        console.log("Запрос на продолжение выполнен успешно.");
+        showAlertModal("Запит виконаний успішно! Послугу тимчасово відновлено", triggerButton);
+        break;
       }
     } catch (error) {
-      console.error('Error:', error)
+      console.error('Error:', error);
       showAlertModal('На жаль, виникла помилка при виконанні запиту. Будь ласка, спробуйте ще раз пізніше.', triggerButton);
     }
   }
 }
 
+
 async function goOn_PayLink(event) {
-  const triggerButton = event.currentTarget;
+  const triggerButton = event.currentTarget
   for (const redirectApiHost of redirectApiHosts) {
     try {
-      const confirmation = await createConfirmationModal("перейти на сторінку оплати", triggerButton);
+      const confirmation = await createConfirmationModal("перейти на сторінку оплати", triggerButton)
       if (!confirmation) {
-        console.log("The action canceled by user!");
-        return;
+        console.log("The action canceled by user!")
+        return
       }
-      const amount = await createPaymentModal(triggerButton);
+      const amount = await createPaymentModal(triggerButton)
       if (amount === null) {
-        console.log("Payment canceled by user!");
-        return;
+        console.log("Payment canceled by user!")
+        return
       }
-      console.log(`Payment amount: ${amount}`);
+      console.log(`Payment amount: ${amount}`)
       const apiAddress = `https://${redirectApiHost}:8002/redirect-api/get-pay-link/?amount=${amount}`
 
       const response = await fetch(apiAddress, {
@@ -474,19 +459,19 @@ async function goOn_PayLink(event) {
           messageElement.style.borderRadius = '5px'
           const buttonParent = buttonElement.parentNode
           buttonParent.insertBefore(messageElement, buttonElement.nextSibling)
-          console.log("Запрос на продолжение выполнен успешно.");
-          showAlertModal("Запит виконаний успішно! Послугу тимчасово відновлено", triggerButton);
+          console.log("Запрос на продолжение выполнен успешно.")
+          showAlertModal("Запит виконаний успішно! Послугу тимчасово відновлено", triggerButton)
           break
         } else {
           removeCreditLink()
-          console.log("Запрос на продолжение выполнен успешно.");
-          showAlertModal("Запит виконаний успішно! Послугу тимчасово відновлено", triggerButton);
+          console.log("Запрос на продолжение выполнен успешно.")
+          showAlertModal("Запит виконаний успішно! Послугу тимчасово відновлено", triggerButton)
           break
         }
       }
     } catch (error) {
       console.error('Error:', error)
-      showAlertModal('На жаль, виникла помилка при виконанні запиту. Будь ласка, спробуйте ще раз пізніше.', triggerButton);
+      showAlertModal('На жаль, виникла помилка при виконанні запиту. Будь ласка, спробуйте ще раз пізніше.', triggerButton)
     }
   }
 }
@@ -501,22 +486,22 @@ function goToBankFill() {
 //#region showSlides
 function showSlides() {
   slides.forEach(slide => {
-    slide.style.display = 'none';
-  });
-  const currentSlide = slides[slideIndex];
-  currentSlide.style.display = 'block';
+    slide.style.display = 'none'
+  })
+  const currentSlide = slides[slideIndex]
+  currentSlide.style.display = 'block'
 }
 
 function nextSlide() {
-  slideIndex++;
-  if (slideIndex >= totalSlides) slideIndex = 0;
-  showSlides();
+  slideIndex++
+  if (slideIndex >= totalSlides) slideIndex = 0
+  showSlides()
 }
 
 function prevSlide() {
-  slideIndex--;
-  if (slideIndex < 0) slideIndex = 0;
-  showSlides();
+  slideIndex--
+  if (slideIndex < 0) slideIndex = 0
+  showSlides()
 }
 //#endregion
 
@@ -533,37 +518,37 @@ function createConfirmationModal(message, triggerButton) {
       </div>
     </div>
     <div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000;"></div>
-  `;
+  `
 
-  document.body.insertAdjacentHTML('beforeend', modalHTML);
+  document.body.insertAdjacentHTML('beforeend', modalHTML)
 
   return new Promise((resolve) => {
-    const modal = document.getElementById('confirmationModal');
-    const overlay = document.getElementById('overlay');
+    const modal = document.getElementById('confirmationModal')
+    const overlay = document.getElementById('overlay')
 
-    const rect = triggerButton.getBoundingClientRect();
-    modal.style.top = `${rect.top + window.scrollY + 35}px`; // Add 35px offset
-    modal.style.left = `${rect.left + window.scrollX}px`;
+    const rect = triggerButton.getBoundingClientRect()
+    modal.style.top = `${rect.top + window.scrollY + 35}px` // Add 35px offset
+    modal.style.left = `${rect.left + window.scrollX}px`
 
-    modal.style.display = 'block';
-    overlay.style.display = 'block';
+    modal.style.display = 'block'
+    overlay.style.display = 'block'
 
     document.getElementById('confirmYes').onclick = () => {
-      modal.style.display = 'none';
-      overlay.style.display = 'none';
-      modal.remove();
-      overlay.remove();
-      resolve(true);
-    };
+      modal.style.display = 'none'
+      overlay.style.display = 'none'
+      modal.remove()
+      overlay.remove()
+      resolve(true)
+    }
 
     document.getElementById('confirmNo').onclick = () => {
-      modal.style.display = 'none';
-      overlay.style.display = 'none';
-      modal.remove();
-      overlay.remove();
-      resolve(false);
-    };
-  });
+      modal.style.display = 'none'
+      overlay.style.display = 'none'
+      modal.remove()
+      overlay.remove()
+      resolve(false)
+    }
+  })
 }
 
 function showAlertModal(message, triggerButton) {
@@ -577,24 +562,24 @@ function showAlertModal(message, triggerButton) {
     <div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000;"></div>
   `;
 
-  document.body.insertAdjacentHTML('beforeend', alertHTML);
+  document.body.insertAdjacentHTML('beforeend', alertHTML)
 
-  const alertModal = document.getElementById('alertModal');
-  const overlay = document.getElementById('overlay');
+  const alertModal = document.getElementById('alertModal')
+  const overlay = document.getElementById('overlay')
 
-  const rect = triggerButton.getBoundingClientRect();
-  alertModal.style.top = `${rect.top + window.scrollY + 35}px`; // Add 35px offset
-  alertModal.style.left = `${rect.left + window.scrollX}px`;
+  const rect = triggerButton.getBoundingClientRect()
+  alertModal.style.top = `${rect.top + window.scrollY + 35}px` // Add 35px offset
+  alertModal.style.left = `${rect.left + window.scrollX}px`
 
-  alertModal.style.display = 'block';
-  overlay.style.display = 'block';
+  alertModal.style.display = 'block'
+  overlay.style.display = 'block'
 
   document.getElementById('alertOk').onclick = () => {
-    alertModal.style.display = 'none';
-    overlay.style.display = 'none';
-    alertModal.remove();
-    overlay.remove();
-  };
+    alertModal.style.display = 'none'
+    overlay.style.display = 'none'
+    alertModal.remove()
+    overlay.remove()
+  }
 }
 function createPaymentModal(triggerButton) {
   const modalHTML = `
@@ -614,42 +599,42 @@ function createPaymentModal(triggerButton) {
     <div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000;"></div>
   `;
 
-  document.body.insertAdjacentHTML('beforeend', modalHTML);
+  document.body.insertAdjacentHTML('beforeend', modalHTML)
 
   return new Promise((resolve) => {
-    const modal = document.getElementById('paymentModal');
-    const overlay = document.getElementById('overlay');
+    const modal = document.getElementById('paymentModal')
+    const overlay = document.getElementById('overlay')
 
     // Calculate the position of the trigger button
-    const rect = triggerButton.getBoundingClientRect();
-    modal.style.top = `${rect.top + window.scrollY + 35}px`; // Add 35px offset
-    modal.style.left = `${rect.left + window.scrollX}px`;
+    const rect = triggerButton.getBoundingClientRect()
+    modal.style.top = `${rect.top + window.scrollY + 35}px` // Add 35px offset
+    modal.style.left = `${rect.left + window.scrollX}px`
 
-    modal.style.display = 'block';
-    overlay.style.display = 'block';
+    modal.style.display = 'block'
+    overlay.style.display = 'block'
 
     document.getElementById('confirmPayment').onclick = () => {
-      const amount = document.getElementById('paymentAmount').value;
-      modal.style.display = 'none';
-      overlay.style.display = 'none';
-      modal.remove();
-      overlay.remove();
-      resolve(amount);
-    };
+      const amount = document.getElementById('paymentAmount').value
+      modal.style.display = 'none'
+      overlay.style.display = 'none'
+      modal.remove()
+      overlay.remove()
+      resolve(amount)
+    }
 
     document.getElementById('cancelPayment').onclick = () => {
-      modal.style.display = 'none';
-      overlay.style.display = 'none';
-      modal.remove();
-      overlay.remove();
-      resolve(null);
-    };
+      modal.style.display = 'none'
+      overlay.style.display = 'none'
+      modal.remove()
+      overlay.remove()
+      resolve(null)
+    }
 
     // Prevent non-numeric input
     document.getElementById('paymentAmount').addEventListener('input', (event) => {
-      event.target.value = event.target.value.replace(/[^0-9]/g, '');
-    });
-  });
+      event.target.value = event.target.value.replace(/[^0-9]/g, '')
+    })
+  })
 }
 
 // endregion
