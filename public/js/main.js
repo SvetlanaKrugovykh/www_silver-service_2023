@@ -374,7 +374,7 @@ async function getInvoiceFromRedirectAPI(event) {
         const blob = await response.blob()
         const objectUrl = URL.createObjectURL(blob)
         window.open(objectUrl, "_blank")
-        console.log("Запрос на получение счета выполнен успешно.")
+        console.log("Запрос на получение счета виконано успішно.")
         showAlertModal("Запит виконаний успішно! Передивиться каталог завантажень", triggerButton)
         break
       } else {
@@ -410,8 +410,8 @@ async function goOn_RedirectAPI(event) {
         console.log(`Request: ${response.status}`);
         continue;
       } else {
-        console.log("Запрос на продолжение выполнен успешно.");
-        showAlertModal("Запит виконаний успішно! Послугу тимчасово відновлено", triggerButton);
+        console.log("Запит на продовження виконано успішно.");
+        showAlertModal("Запит виконано успішно! Послугу тимчасово відновлено", triggerButton);
         break;
       }
     } catch (error) {
@@ -447,27 +447,9 @@ async function goOn_PayLink(event) {
         console.log(`Request: ${response.status}`)
         continue
       } else {
-        if (window.innerWidth > 768) {
-          const buttonElement = document.querySelector('.t-btn.t393__submit')
-          buttonElement.style.display = 'none'
-          const messageElement = document.createElement('div')
-          messageElement.textContent = 'Готово. Послугу тимчасово відновлено'
-          messageElement.style.backgroundColor = '#1c008a'
-          messageElement.style.color = 'orange'
-          messageElement.style.fontSize = '22px'
-          messageElement.style.padding = '10px'
-          messageElement.style.borderRadius = '5px'
-          const buttonParent = buttonElement.parentNode
-          buttonParent.insertBefore(messageElement, buttonElement.nextSibling)
-          console.log("Запрос на продолжение выполнен успешно.")
-          showAlertModal("Запит виконаний успішно! Послугу тимчасово відновлено", triggerButton)
-          break
-        } else {
-          removeCreditLink()
-          console.log("Запрос на продолжение выполнен успешно.")
-          showAlertModal("Запит виконаний успішно! Послугу тимчасово відновлено", triggerButton)
-          break
-        }
+        console.log("Посилання на сплату згенеровано успішно.");
+        showAlertModal("Запит виконаний успішно! Превірти новий рахунок", triggerButton);
+        break;
       }
     } catch (error) {
       console.error('Error:', error)
