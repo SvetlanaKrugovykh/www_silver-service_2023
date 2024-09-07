@@ -365,6 +365,7 @@ async function getInvoiceFromRedirectAPI(event) {
 
       if (!response.ok) {
         console.log(`Request failed with status: ${response.status}`)
+        showAlertModal('Відмова. Всі дії на сторінке працюють тільки в межах нашої мережі. Якщо знаходитесь зовні - використовуйте авторизований вхід за допомогою телеграм бота', triggerButton)
         continue
       }
 
@@ -406,7 +407,8 @@ async function goOn_RedirectAPI(event) {
       });
 
       if (!response.ok) {
-        console.log(`Request: ${response.status}`);
+        console.log(`Request: ${response.status}`)
+        showAlertModal('Відмова. Всі дії на сторінке працюють тільки в межах нашої мережі. Якщо знаходитесь зовні - використовуйте авторизований вхід за допомогою телеграм бота', triggerButton)
         continue;
       } else {
         console.log("Запит на продовження виконано успішно.");
@@ -443,6 +445,7 @@ async function goOn_PayLink(event) {
 
       if (!response.ok) {
         console.log(`Request failed with status: ${response.status}`)
+        showAlertModal('Відмова. Всі дії на сторінке працюють тільки в межах нашої мережі. Якщо знаходитесь зовні - використовуйте авторизований вхід за допомогою телеграм бота', triggerButton)
         continue
       } else {
         const data = await response.json()
@@ -572,6 +575,7 @@ function showAlertModal(message, triggerButton) {
     overlay.remove()
   }
 }
+
 function createPaymentModal(triggerButton) {
   const modalHTML = `
     <div id="paymentModal" style="display:none; position:absolute; background:#2a2a72; padding:20px; border:1px solid #ff4136; box-shadow:0 4px 8px rgba(0,0,0,0.2); border-radius:8px; z-index:1001;">
