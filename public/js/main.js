@@ -365,7 +365,7 @@ async function getInvoiceFromRedirectAPI(event) {
 
       if (!response.ok) {
         console.log(`Request failed with status: ${response.status}`)
-        showAlertModal('Відмова. Всі дії на сторінке працюють тільки в межах нашої мережі. Якщо знаходитесь зовні - використовуйте авторизований вхід за допомогою телеграм бота', triggerButton)
+        showAlertModal('Відмова. Всі дії на сторінці працюють тільки в межах нашої мережі. Якщо знаходитесь зовні - використовуйте авторизований вхід за допомогою телеграм бота', triggerButton)
         continue
       }
 
@@ -408,7 +408,7 @@ async function goOn_RedirectAPI(event) {
 
       if (!response.ok) {
         console.log(`Request: ${response.status}`)
-        showAlertModal('Відмова. Всі дії на сторінке працюють тільки в межах нашої мережі. Якщо знаходитесь зовні - використовуйте авторизований вхід за допомогою телеграм бота', triggerButton)
+        showAlertModal('Відмова. Всі дії на сторінці працюють тільки в межах нашої мережі. Якщо знаходитесь зовні - використовуйте авторизований вхід за допомогою телеграм бота', triggerButton)
         continue;
       } else {
         console.log("Запит на продовження виконано успішно.");
@@ -445,7 +445,7 @@ async function goOn_PayLink(event) {
 
       if (!response.ok) {
         console.log(`Request failed with status: ${response.status}`)
-        showAlertModal('Відмова. Всі дії на сторінке працюють тільки в межах нашої мережі. Якщо знаходитесь зовні - використовуйте авторизований вхід за допомогою телеграм бота', triggerButton)
+        showAlertModal('Відмова. Всі дії на сторінці працюють тільки в межах нашої мережі. Якщо знаходитесь зовні - використовуйте авторизований вхід за допомогою телеграм бота', triggerButton)
         continue
       } else {
         const data = await response.json()
