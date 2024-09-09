@@ -422,6 +422,40 @@ async function goOn_RedirectAPI(event) {
   }
 }
 
+async function goOn_MainPayLink(event) {
+  const triggerButton = event.currentTarget;
+  try {
+    const confirmation = await createConfirmationModal("Ви впевнені, що хочете перейти на сторінку оплати", triggerButton);
+    if (!confirmation) {
+      console.log("The action canceled by user!");
+      return;
+    }
+    const apiAddress = `https://${redirectApiHost}:8008/api/liqpay/callback/get-ip/`;
+    const response = await fetch(apiAddress, {
+      method: "GET",
+      mode: "cors",
+      cache: "no-cache"
+    });
+    if (!response.ok) {
+      console.log(`Request failed with status: ${response.status}`);
+      showAlertModal('Відмова. Всі дії на сторінці працюють тільки в межах нашої мережі. Якщо знаходитесь зовні - використовуйте авторизований вхід за допомогою телеграм бота', triggerButton);
+    } else {
+      const text = await response.text();
+      console.log(`Response is not JSON: ${text}`);
+      const IP = text.trim();
+      console.log(`IP: ${IP}`);
+      if (IP === "91.220.106.3") {
+        window.location.href = gate;
+      } else {
+        window.location.href = gateway;
+      }
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    showAlertModal('На жаль, виникла помилка при виконанні запиту. Будь ласка, спробуйте ще раз пізніше.', triggerButton);
+  }
+}
+
 async function goOn_PayLink(event) {
   const triggerButton = event.currentTarget
   for (const redirectApiHost of redirectApiHosts) {
