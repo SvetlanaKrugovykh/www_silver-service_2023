@@ -445,9 +445,9 @@ async function goOn_MainPayLink(event) {
       const IP = text.trim();
       console.log(`IP: ${IP}`);
       if (IP === "91.220.106.3" || IP.startsWith("192.168.") || IP.startsWith("10.100.") || ip_addresses.includes(IP)) {
-        window.location.href = gate;
+        window.location.href = gate
       } else {
-        window.location.href = gateway;
+        window.location.href = gateway
       }
     }
   } catch (error) {
