@@ -191,6 +191,26 @@ function choiceHeader() {
     toggleMenu()
     launchPageRebuilding()
   }
+
+  const ends = ['/PL/', 'pl.html', '/en/', 'en.html', '/uk/', 'uk.html', '/de/', 'de.html'];
+  const currentUrl = window.location.href.toLowerCase()
+  console.log(currentUrl)
+  const langMap = {
+    'pl': 'https://svetlanakrugovykh.github.io/WWW-SILVER-SERVICE/?lang=pl',
+    'en': 'https://svetlanakrugovykh.github.io/WWW-SILVER-SERVICE/?lang=en',
+    'uk': 'https://svetlanakrugovykh.github.io/WWW-SILVER-SERVICE/?lang=uk',
+    'de': 'https://svetlanakrugovykh.github.io/WWW-SILVER-SERVICE/?lang=de'
+  }
+
+  for (const end of ends) {
+    if (currentUrl.endsWith(end.toLowerCase())) {
+      const lang = end.match(/pl|en|uk|de/)[0]
+      if (langMap[lang]) {
+        window.location.href = langMap[lang]
+        return
+      }
+    }
+  }
 }
 
 //#region toggleMenu
