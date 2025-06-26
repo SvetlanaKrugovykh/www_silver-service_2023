@@ -464,7 +464,9 @@ async function goOn_MainPayLink(event) {
       console.log(`Response is not JSON: ${text}`);
       const IP = text.trim();
       console.log(`IP: ${IP}`);
-      if (IP === "91.220.106.3" || IP.startsWith("192.168.") || IP.startsWith("10.100.") || ip_addresses.includes(IP)) {
+      if (IP === "176.124.139.138" || IP.startsWith("192.168.19.")) {
+        window.location.href = edge
+      } else if (IP === "91.220.106.3" || IP.startsWith("192.168.") || IP.startsWith("10.100.") || ip_addresses.includes(IP)) {
         window.location.href = gate
       } else {
         window.location.href = gateway
