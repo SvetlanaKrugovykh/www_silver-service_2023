@@ -450,38 +450,21 @@ async function goOn_MainPayLink(event) {
       console.log("The action canceled by user!");
       return;
     }
-    const apiAddress = `https://${redirectApiHost}:8008/api/liqpay/callback/get-ip/`;
+    const apiAddress = `https://${redirectApiHost}:8008/api/liqpay/callback/get-gate/`;
     const response = await fetch(apiAddress, {
       method: "GET",
       mode: "cors",
       cache: "no-cache"
     });
-    	
+
     if (!response.ok) {
       console.log(`Request failed with status: ${response.status}`);
       showAlertModal('Відмова. Всі дії на сторінці працюють тільки в межах нашої мережі. Якщо знаходитесь зовні - використовуйте авторизований вхід за допомогою телеграм бота', triggerButton);
     } else {
-      const text = await response.text();
-      console.log(`Response is not JSON: ${text}`);
-      const IP = text.trim();
-      console.log(`IP: ${IP}`);
-
-	  if (IP === "176.124.139.138") {
-		window.location.href = edge;
-	  } else if (
-		IP === "91.220.106.3" ||
-		IP.startsWith("192.168.") ||
-		IP.startsWith("10.100.") ||
-		ip_addresses.includes(IP)
-	  ) {
-		window.location.href = gate;
-	  } else {
-		window.location.href = gateway;
-	  }
-	}	
-	
-	
-	
+      const gateUrl = await response.text();
+      console.log("gate URL successfully retrieved:", gateUrl);
+      window.location.href = gateUrl.trim();
+    }
   } catch (error) {
     console.error('Error:', error);
     showAlertModal('На жаль, виникла помилка при виконанні запиту. Будь ласка, спробуйте ще раз пізніше.', triggerButton);
