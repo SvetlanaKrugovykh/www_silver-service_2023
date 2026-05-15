@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silver Noetic Lingua</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0e0f11;
+  --surface: #16181c;
+  --card: #1c1f26;
+  --border: #2a2d35;
+  --silver: #a8b4c0;
+  --silver-bright: #d0dae4;
+  --silver-dim: #6b7885;
+  --accent: #c8d8e8;
+  --text: #e8ecf0;
+  --muted: #8a9199;
+  --glow: rgba(168, 180, 192, 0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── GRAIN OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+/* ─── HEADER ─── */
+header {
+  position: relative;
+  text-align: center;
+  padding: 100px 20px 60px;
+  overflow: hidden;
+}
+
+.header-glow {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 300px;
+  background: radial-gradient(ellipse at center, rgba(168,180,192,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.logo-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.logo-line::before,
+.logo-line::after {
+  content: '';
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--silver-dim));
+}
+.logo-line::after {
+  background: linear-gradient(90deg, var(--silver-dim), transparent);
+}
+
+.logo-mark {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  color: var(--silver);
+  background: var(--surface);
+}
+
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(2.6rem, 6vw, 4.2rem);
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  color: var(--silver-bright);
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--silver);
+}
+
+.tagline {
+  margin-top: 20px;
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.lang-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.badge {
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--silver-dim);
+  background: var(--surface);
+  text-transform: uppercase;
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto 48px;
+  padding: 0 20px;
+}
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.divider span {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--silver-dim);
+}
+
+/* ─── CONTAINER ─── */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── VIDEO CARDS ─── */
+.video-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 60px;
+}
+
+@media (max-width: 640px) {
+  .video-grid { grid-template-columns: 1fr; }
+}
+
+.video-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.video-card:hover {
+  border-color: var(--silver-dim);
+  transform: translateY(-3px);
+}
+
+.video-label {
+  padding: 14px 18px 10px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--silver-dim);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.video-label::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--silver-dim);
+  flex-shrink: 0;
+}
+
+video {
+  width: 100%;
+  display: block;
+  background: #050607;
+  aspect-ratio: 16/9;
+}
+
+/* ─── ABOUT SECTION ─── */
+.about-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 60px;
+}
+
+@media (max-width: 640px) {
+  .about-section { grid-template-columns: 1fr; }
+}
+
+.info-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  transition: border-color 0.3s;
+}
+.info-card:hover { border-color: var(--silver-dim); }
+
+.info-card .ic-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem;
+  color: var(--border);
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 14px;
+}
+
+.info-card h3 {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--silver);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.info-card p {
+  font-size: 0.93rem;
+  color: var(--muted);
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+/* ─── FEEDBACK SECTION ─── */
+.feedback-banner {
+  background: linear-gradient(135deg, var(--card) 0%, #1a1e28 100%);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 36px 40px;
+  margin-bottom: 40px;
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .feedback-banner { flex-direction: column; gap: 20px; padding: 28px 24px; }
+}
+
+.fb-icon {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  color: var(--silver-dim);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.fb-body h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--silver-bright);
+  margin-bottom: 8px;
+}
+
+.fb-body p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ─── FEEDBACK WALL (NEW) ─── */
+.feedback-form {
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-field {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  color: var(--text);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.input-field:focus {
+  border-color: var(--silver-dim);
+}
+
+textarea.input-field {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.messages-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.message-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  animation: fadeUp 0.5s ease both;
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.msg-author {
+  color: var(--silver);
+  font-weight: 600;
+}
+
+.msg-date {
+  color: var(--silver-dim);
+}
+
+.msg-text {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ─── CTA ─── */
+.cta {
+  text-align: center;
+  padding: 0 20px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--silver);
+  margin-bottom: 28px;
+  letter-spacing: 0.03em;
+}
+
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--silver);
+  transition: all 0.25s;
+  cursor: pointer;
+}
+
+.btn:hover {
+  border-color: var(--silver-dim);
+  background: var(--surface);
+  color: var(--silver-bright);
+  transform: translateY(-2px);
+}
+
+.btn.primary {
+  background: var(--silver);
+  border-color: var(--silver);
+  color: #0e0f11;
+}
+.btn.primary:hover {
+  background: var(--silver-bright);
+  border-color: var(--silver-bright);
+  color: #0a0b0d;
+}
+
+.btn svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border);
+  text-align: center;
+  padding: 28px 20px;
+  font-size: 12px;
+  color: var(--silver-dim);
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+header, .container, .cta {
+  animation: fadeUp 0.8s ease both;
+}
+.container { animation-delay: 0.15s; }
+.cta       { animation-delay: 0.25s; }
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-glow"></div>
+  <div class="logo-line">
+    <div class="logo-mark">S</div>
+  </div>
+  <h1>Silver Noetic <em>Lingua</em></h1>
+  <p class="tagline">Ти не вчиш мову — ти в ній живеш.</p>
+  <div class="lang-badges">
+    <span class="badge">EN</span>
+    <span class="badge">DE</span>
+    <span class="badge">PL</span>
+    <span class="badge">CS</span>
+    <span class="badge">IT</span>
+    <span class="badge">FR</span>
+    <span class="badge">RU</span>
+    <span class="badge">UK</span>
+    <span class="badge">ES</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="divider"><span>Відеопрезентація</span></div>
+  <div class="video-grid">
+    <div class="video-card">
+      <div class="video-label">Частина І — Знайомство</div>
+      <video controls preload="metadata">
+        <source src="videos/intro_1.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="video-card">
+      <div class="video-label">Частина ІІ — Як це працює</div>
+      <video controls preload="metadata">
+        <source src="videos/intro_2.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <div class="divider"><span>Про проєкт</span></div>
+  <div class="about-section">
+    <div class="info-card">
+      <div class="ic-num">01</div>
+      <h3>Що таке SNL</h3>
+      <p>Мовна школа нового формату — де навчання будується через занурення, живі діалоги і реальний контекст.</p>
+    </div>
+    <div class="info-card">
+      <div class="ic-num">02</div>
+      <h3>Для кого</h3>
+      <p>Для тих, хто вже пробував вчити мову і зупинявся. Для тих, кому потрібен результат — а не лише сертифікат.</p>
+    </div>
+  </div>
+
+  <div class="feedback-banner">
+    <div class="fb-icon">✦</div>
+    <div class="fb-body">
+      <h2>Зараз — попередній перегляд для своїх</h2>
+      <p>Поки школа ще готується до офіційного запуску, я ділюся ідеєю з тими, кому довіряю. Залиш свої думки нижче.</p>
+    </div>
+  </div>
+
+  <div class="divider"><span>Відгуки спільноти</span></div>
+  
+  <div class="info-card feedback-form">
+    <h3>Твій відгук</h3>
+    <input type="text" id="userName" placeholder="Твоє ім'я (або анонімно)" class="input-field">
+    <textarea id="userMsg" placeholder="Напиши свої думки про проєкт..." class="input-field"></textarea>
+    <button onclick="sendFeedback()" class="btn primary" style="align-self: flex-start;">
+      Надіслати відгук
+    </button>
+  </div>
+
+  <div id="messagesList" class="messages-container">
+    </div>
+
+</div>
+
+<div class="cta">
+  <div class="cta-title">Залишайся на зв'язку</div>
+  <div class="btn-group">
+    <a class="btn" href="https://t.me/SilverNoeticLingua" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      Telegram-чат
+    </a>
+    <a class="btn primary" href="https://t.me/Silver_Noetic_Lingua" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      Telegram-канал
+    </a>
+  </div>
+</div>
+
+<footer>
+  © 2025 Silver Noetic Lingua &nbsp;·&nbsp; попередній перегляд для запрошених
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+  apiKey: "AIzaSyC8AqbXGmEBh71tODimoeOGWDGXwjZnHMQ",
+  authDomain: "tm-shpf-srv-local-ksv.firebaseapp.com",
+  projectId: "tm-shpf-srv-local-ksv",
+  storageBucket: "tm-shpf-srv-local-ksv.firebasestorage.app",
+  messagingSenderId: "824445940345",
+  appId: "1:824445940345:web:da28d418790c4d4bd91aa8",
+  measurementId: "G-CYSPM4MNQM"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  function sendFeedback() {
+    const name = document.getElementById('userName').value.trim() || 'Анонім';
+    const text = document.getElementById('userMsg').value.trim();
+
+    if (!text) {
+      alert("Будь ласка, напиши хоч щось :)");
+      return;
+    }
+
+    db.collection("feedbacks").add({
+      name: name,
+      text: text,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+      document.getElementById('userMsg').value = '';
+    }).catch((error) => {
+      console.error("Ошибка при отправке: ", error);
+    });
+  }
+
+  // Обновление списка в реальном времени
+  db.collection("feedbacks").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
+    const list = document.getElementById('messagesList');
+    list.innerHTML = '';
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      const date = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleDateString() : 'щойно';
+      
+      const msgHtml = `
+        <div class="message-item">
+          <div class="message-header">
+            <span class="msg-author">${data.name}</span>
+            <span class="msg-date">${date}</span>
+          </div>
+          <p class="msg-text">${data.text}</p>
+        </div>
+      `;
+      list.insertAdjacentHTML('beforeend', msgHtml);
+    });
+  });
+</script>
+
+</body>
+</html>
