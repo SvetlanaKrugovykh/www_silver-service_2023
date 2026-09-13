@@ -675,7 +675,7 @@
           box-sizing: border-box;
           --brand: #1c008a;
           --brand-deep: #150a52;
-          --accent: #e8452b;
+          --accent: #fb482b;
           --accent-hover: #ff6347;
           --gold: #ffa53d;
           --ink: #1c1a30;
@@ -740,35 +740,29 @@
         #snl-hero .sh-path {
           display: flex;
           flex-direction: column;
+          gap: 6px;
           background: rgba(255, 255, 255, 0.06);
           border: 1px solid rgba(255, 255, 255, 0.16);
           border-radius: 14px;
-          overflow: hidden;
+          padding: 20px 22px;
+          text-decoration: none;
           transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, transform 0.15s ease-in-out;
         }
 
         #snl-hero .sh-path:hover {
-          background: rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.12);
           border-color: rgba(255, 255, 255, 0.35);
           transform: translateY(-2px);
         }
 
         #snl-hero .sh-path_accent {
-          border-color: rgba(251, 72, 43, 0.5);
-          background: rgba(251, 72, 43, 0.1);
+          border-color: rgba(251, 72, 43, 0.55);
+          background: rgba(251, 72, 43, 0.12);
         }
 
         #snl-hero .sh-path_accent:hover {
-          background: rgba(251, 72, 43, 0.16);
+          background: rgba(251, 72, 43, 0.2);
           border-color: var(--accent);
-        }
-
-        #snl-hero .sh-path-body {
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
-          padding: 20px 22px 16px;
-          text-decoration: none;
         }
 
         #snl-hero .sh-path-tag {
@@ -799,32 +793,6 @@
 
         #snl-hero .sh-path_accent .sh-path-cta {
           color: #ffd2c6;
-        }
-
-        #snl-hero .sh-path-direct {
-          display: block;
-          text-align: center;
-          font-size: 13px;
-          font-weight: 700;
-          text-decoration: none;
-          color: #ffffff;
-          padding: 12px 22px;
-          background: rgba(255, 255, 255, 0.08);
-          border-top: 1px solid rgba(255, 255, 255, 0.14);
-          transition: background-color 0.2s ease-in-out;
-        }
-
-        #snl-hero .sh-path-direct:hover {
-          background: rgba(255, 255, 255, 0.16);
-        }
-
-        #snl-hero .sh-path_accent .sh-path-direct {
-          background: rgba(251, 72, 43, 0.18);
-          border-top-color: rgba(251, 72, 43, 0.3);
-        }
-
-        #snl-hero .sh-path_accent .sh-path-direct:hover {
-          background: rgba(251, 72, 43, 0.3);
         }
 
         @media screen and (max-width: 640px) {
@@ -863,7 +831,7 @@
           font-weight: 700;
           letter-spacing: 1px;
           text-transform: uppercase;
-          color: var(--brand);
+          color: var(--accent);
           margin-bottom: 10px;
         }
 
@@ -992,7 +960,7 @@
         #snl-block1 .sb1-subitem-label {
           display: block;
           font-weight: 700;
-          color: var(--brand);
+          color: var(--accent);
           font-size: 13px;
           margin-bottom: 2px;
         }
@@ -1147,7 +1115,7 @@
         }
 
         #snl-bridge strong {
-          color: var(--brand);
+          color: var(--accent);
         }
 
         @media screen and (max-width: 640px) {
@@ -1465,22 +1433,16 @@
           <h1>Розуміти й говорити будь-якою мовою — коли це потрібно саме вам</h1>
           <p class="sh-lead">Оберіть свій сценарій нижче: разовий переклад важливої розмови прямо зараз або системне вивчення мови на щодень.</p>
           <div class="sh-paths">
-            <div class="sh-path">
-              <a class="sh-path-body" href="#snl-block1">
-                <span class="sh-path-tag">Разово, зараз</span>
-                <span class="sh-path-title">Записати й перекласти розмову</span>
-                <span class="sh-path-cta">Детальніше ↓</span>
-              </a>
-              <a class="sh-path-direct" href="https://parley.silver-service.com.ua/" target="_blank" rel="noopener noreferrer">Спробувати Parley →</a>
-            </div>
-            <div class="sh-path sh-path_accent">
-              <a class="sh-path-body" href="#langoffer">
-                <span class="sh-path-tag">Системно, на щодень</span>
-                <span class="sh-path-title">Вивчити мову з Noetic Lingua</span>
-                <span class="sh-path-cta">Детальніше ↓</span>
-              </a>
-              <a class="sh-path-direct" href="https://noetic-lingua.silver-service.com.ua/tools" target="_blank" rel="noopener noreferrer">Перейти на Noetic Lingua →</a>
-            </div>
+            <a class="sh-path" href="#snl-block1">
+              <span class="sh-path-tag">Разово, зараз</span>
+              <span class="sh-path-title">Записати й перекласти розмову</span>
+              <span class="sh-path-cta">Детальніше ↓</span>
+            </a>
+            <a class="sh-path sh-path_accent" href="#langoffer">
+              <span class="sh-path-tag">Системно, на щодень</span>
+              <span class="sh-path-title">Вивчити мову з Noetic Lingua</span>
+              <span class="sh-path-cta">Детальніше ↓</span>
+            </a>
           </div>
         </div>
       </div>
